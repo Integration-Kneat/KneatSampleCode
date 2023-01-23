@@ -15,6 +15,7 @@ receive_token_endpoint = f'{token_service_url}/oauth/token'
 # The refresh token endpoint
 refresh_token_endpoint = f'{token_service_url}/oauth/refresh'
 
+
 # Open the authorization URL in a web browser
 def open_oauth_page():
     webbrowser.open_new(authorization_url)
