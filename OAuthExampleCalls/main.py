@@ -6,6 +6,9 @@ from flask import request, Flask
 
 from variables import token_service_url, client_id, callback_uri, gx_base_url
 
+import tokenHelper
+
+
 # The authorization URL to open in a web browser
 authorization_url = f'{token_service_url}/Grant/Authorize?client_id={client_id}&response_type=code&redirect_uri={callback_uri}'
 
@@ -41,6 +44,8 @@ def callback_oauth():
         print('Token:')
         print(jwt_token)
         get_users(jwt_token)
+        tokenHelper.saveToken(jwt_token)
+
         return "<p>Auth code received, back to your console application.</p>"
     else:
         raise Exception('Error getting access token:' + token_response.text)
@@ -81,6 +86,8 @@ def get_users(access_token):
             raise Exception('Error refreshing token:' + refresh_token_response.text)
     else:
         raise Exception('Error getting users:' + response.text)
+
+
 
 
 # Main entry point
